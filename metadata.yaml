@@ -7,10 +7,7 @@ description: |
 tags:
   - Big Data
 subordinate: true
-provides:
-  provides-relation:
-    interface: interface-name
 requires:
-  requires-relation:
-    interface: juju-info
+  spark:
+    interface: spark
     scope: container

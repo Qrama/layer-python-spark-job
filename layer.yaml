@@ -1,1 +1,2 @@
-includes: ['layer:basic']  # if you use any interfaces, add them here
+includes: ['layer:basic', 'interface:spark']  # if you use any interfaces, add them here
+repo: https://github.com/Qrama/spark-job.git

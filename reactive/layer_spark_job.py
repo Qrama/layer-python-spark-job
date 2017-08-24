@@ -17,18 +17,20 @@
 import subprocess as sp
 import tempfile
 
-from charms.reactive import when_not, set_state
+from charms.reactive import when, when_not, set_state
 from charmhelpers.core.hookenv import status_set, config, service_name
 
 
 @when_not('spark-job.installed')
 def deploy_job():
     conf = config()
-    if not conf['job_location']:
+    if conf['job_location']:
         tmp_dir = tempfile.mkdtemp()
-        sp.check_call(['wget', conf['job_location'], '-P', tmp_dir])
-        sp.check_call(['./bin/spark-submit', tmp_dir])
-        status_set('active', 'Spark job {} is deployed and running on spark'.format(service_name()))
+        serv_name = service_name()
+        sp.check_call(['hdfs', 'dfs', '-chmod', '777', '/user/root'])
+        sp.check_call(['wget', '-O', '{}/{}.py'.format(tmp_dir, serv_name), conf['job_location']])
+        sp.check_call(['/usr/lib/spark/bin/spark-submit', '{}/{}.py'.format(tmp_dir,serv_name), '--master', 'spark://127.0.0.1:7077'])
+        status_set('active', 'Spark job {} is deployed and running on spark'.format(serv_name))
         set_state('spark-job.installed')
     else:
         status_set('blocked', 'Please provide a valid url to deploy job by changing job_location config')
