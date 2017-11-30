@@ -1,4 +1,4 @@
-name: spark-job
+name: Spark-Job
 summary: Deploys a job on spark
 maintainer: Sebastien Pattyn<sebastien.pattyn@tengu.io>
 description: |
@@ -11,3 +11,4 @@ requires:
   spark:
     interface: spark
     scope: container
+series: ['xenial']
