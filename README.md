@@ -10,5 +10,9 @@ The job will then be deployed on Spark.
 
 # Configuration
 
-### job_location
+#### job_location
 This is the public URL where the spark job can be found.
+
+# Contact Information
+
+ - Sébastien Pattyn <sebastien.pattyn@tengu.io>
